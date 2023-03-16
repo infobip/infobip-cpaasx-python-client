@@ -28,15 +28,16 @@ class MmsAdvancedMessageSegmentSmil(BaseModel):
     content_id: Optional[StrictStr] = Field(
         None,
         alias="contentId",
-        description="Unique identifier within single message. [a-zA-Z] up to 20 characters.",
+        description="Unique identifier within single message. `[a-zA-Z]` up to 20 characters. Using other characters (e.g. spaces) may cause your message to be rejected by some mobile carriers.",
     )
     content_type: Optional[StrictStr] = Field(
         None,
         alias="contentType",
-        description="Content type for media, for example 'image/png'.",
+        description="Content type for media, for example `application/smil`.",
     )
     smil: Optional[StrictStr] = Field(
-        None, description="Message segment as SMIL format."
+        None,
+        description="Message segment as SMIL format. Be aware that some devices and/or operating systems ignore SMIL, so there is no guarantee that segments will be displayed as specified in SMIL format.",
     )
     __properties = ["contentId", "contentType", "smil"]
 

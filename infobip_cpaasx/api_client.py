@@ -80,7 +80,7 @@ class ApiClient(object):
             self.default_headers[header_name] = header_value
         self.cookie = cookie
         # Set default User-Agent.
-        self.user_agent = "infobip-cpaasx-python-client/0.0.1"
+        self.user_agent = "infobip-api-client-python/0.0.2-cpaasx"
         self.client_side_validation = configuration.client_side_validation
 
     def __enter__(self):
@@ -616,7 +616,7 @@ class ApiClient(object):
                         (k, delimiter.join(quote(str(value)) for value in v))
                     )
             else:
-                new_params.append((k, v))
+                new_params.append((k, quote(v)))
 
         return "&".join(["=".join(item) for item in new_params])
 

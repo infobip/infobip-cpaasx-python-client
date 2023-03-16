@@ -59,6 +59,12 @@ class MmsWebhookOutboundReport(BaseModel):
     price: Optional[MessagePrice] = None
     status: Optional[MessageStatus] = None
     error: Optional[MessageError] = None
+    entity_id: Optional[StrictStr] = Field(
+        None, alias="entityId", description="Entity used in MMS request."
+    )
+    application_id: Optional[StrictStr] = Field(
+        None, alias="applicationId", description="Application used in MMS request."
+    )
     __properties = [
         "bulkId",
         "messageId",
@@ -71,6 +77,8 @@ class MmsWebhookOutboundReport(BaseModel):
         "price",
         "status",
         "error",
+        "entityId",
+        "applicationId",
     ]
 
     class Config:
@@ -132,6 +140,8 @@ class MmsWebhookOutboundReport(BaseModel):
                 "error": MessageError.from_dict(obj.get("error"))
                 if obj.get("error") is not None
                 else None,
+                "entity_id": obj.get("entityId"),
+                "application_id": obj.get("applicationId"),
             }
         )
         return _obj

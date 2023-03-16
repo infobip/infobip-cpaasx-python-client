@@ -9,7 +9,7 @@ resource_associations_endpoint = "/provisioning/1/associations"
 resource_associations_single_endpoint = "/provisioning/1/associations/single"
 
 api_key = "givenApiKey"
-user_agent = "infobip-cpaasx-python-client/0.0.1"
+user_agent = "infobip-api-client-python/0.0.2-cpaasx"
 expected_headers = {
     "Authorization": "App {}".format(api_key),
     "User-Agent": user_agent

@@ -13,7 +13,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, Field, StrictInt, StrictStr
 from infobip_cpaasx.models.mms_price import MmsPrice
@@ -40,7 +40,7 @@ class MmsInboundReport(BaseModel):
     message: Optional[StrictStr] = Field(
         None, description="Full text of the received message."
     )
-    received_at: Optional[StrictStr] = Field(
+    received_at: Optional[datetime] = Field(
         None,
         alias="receivedAt",
         description="Tells when Infobip platform received the message. It has the following format: `yyyy-MM-dd'T'HH:mm:ss.SSSZ`.",

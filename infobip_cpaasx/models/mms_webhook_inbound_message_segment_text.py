@@ -8,13 +8,11 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
+
+import json
 import pprint
 import re  # noqa: F401
-import json
 
-
-from typing import Optional
 from pydantic import BaseModel, Field, StrictStr
 
 
@@ -25,12 +23,12 @@ class MmsWebhookInboundMessageSegmentText(BaseModel):
     Do not edit the class manually.
     """
 
-    content_type: Optional[StrictStr] = Field(
-        None,
+    content_type: StrictStr = Field(
+        ...,
         alias="contentType",
         description="Content type of the message segment, e.g. `text/plain`.",
     )
-    value: Optional[StrictStr] = Field(None, description="Message text.")
+    value: StrictStr = Field(..., description="Message text.")
     __properties = ["contentType", "value"]
 
     class Config:

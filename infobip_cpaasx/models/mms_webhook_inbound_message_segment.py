@@ -8,21 +8,21 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
-import json
+
 import pprint
 import re  # noqa: F401
-
+from typing import Any, List
 from typing import Optional
-from pydantic import BaseModel, Field, StrictStr, ValidationError, validator
+
+from pydantic import BaseModel, ValidationError, validator
+from pydantic import Field
+
 from infobip_cpaasx.models.mms_webhook_inbound_message_segment_link import (
     MmsWebhookInboundMessageSegmentLink,
 )
 from infobip_cpaasx.models.mms_webhook_inbound_message_segment_text import (
     MmsWebhookInboundMessageSegmentText,
 )
-from typing import Any, List
-from pydantic import StrictStr, Field
 
 MMSWEBHOOKINBOUNDMESSAGESEGMENT_ANY_OF_SCHEMAS = [
     "MmsWebhookInboundMessageSegmentLink",
@@ -83,19 +83,13 @@ class MmsWebhookInboundMessageSegment(BaseModel):
         """Returns the object represented by the json string"""
         instance = cls()
         error_messages = []
-        # anyof_schema_1_validator: Optional[MmsWebhookInboundMessageSegmentText] = None
         try:
-            instance.actual_instance = MmsWebhookInboundMessageSegmentText.from_json(
-                json_str
-            )
+            instance.actual_instance = MmsWebhookInboundMessageSegmentText.from_json(json_str)
             return instance
         except ValidationError as e:
             error_messages.append(str(e))
-        # anyof_schema_2_validator: Optional[MmsWebhookInboundMessageSegmentLink] = None
         try:
-            instance.actual_instance = MmsWebhookInboundMessageSegmentLink.from_json(
-                json_str
-            )
+            instance.actual_instance = MmsWebhookInboundMessageSegmentLink.from_json(json_str)
             return instance
         except ValidationError as e:
             error_messages.append(str(e))
@@ -103,7 +97,8 @@ class MmsWebhookInboundMessageSegment(BaseModel):
         if error_messages:
             # no match
             raise ValueError(
-                "No match found when deserializing the JSON string into MmsWebhookInboundMessageSegment with anyOf schemas: MmsWebhookInboundMessageSegmentLink, MmsWebhookInboundMessageSegmentText. Details: "
+                "No match found when deserializing the JSON into MmsWebhookInboundMessageSegment with anyOf schemas: "
+                + "MmsWebhookInboundMessageSegmentLink, MmsWebhookInboundMessageSegmentText. Details:"
                 + ", ".join(error_messages)
             )
         else:
@@ -115,6 +110,32 @@ class MmsWebhookInboundMessageSegment(BaseModel):
             return self.actual_instance.to_json()
         else:
             return "null"
+
+    @classmethod
+    def from_dict(cls, obj: dict) -> MmsWebhookInboundMessageSegment:
+        """Create an instance of MmsWebhookInboundMessageSegment from a dict"""
+        instance = cls()
+        error_messages = []
+        try:
+            instance.actual_instance = MmsWebhookInboundMessageSegmentText.from_dict(obj)
+            return instance
+        except ValidationError as e:
+            error_messages.append(str(e))
+        try:
+            instance.actual_instance = MmsWebhookInboundMessageSegmentLink.from_dict(obj)
+            return instance
+        except ValidationError as e:
+            error_messages.append(str(e))
+
+        if error_messages:
+            # no match
+            raise ValueError(
+                "No match found when deserializing the dict into MmsWebhookInboundMessageSegment with anyOf schemas: "
+                + "MmsWebhookInboundMessageSegmentLink, MmsWebhookInboundMessageSegmentText. Details:"
+                + ", ".join(error_messages)
+            )
+        else:
+            return instance
 
     def to_dict(self) -> dict:
         """Returns the dict representation of the actual instance"""

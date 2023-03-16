@@ -28,7 +28,7 @@ class MmsAdvancedMessageSegmentText(BaseModel):
     content_id: Optional[StrictStr] = Field(
         None,
         alias="contentId",
-        description="Unique identifier within single message. [a-zA-Z] up to 20 characters.",
+        description="Unique identifier within single message. `[a-zA-Z]` up to 20 characters. Using other characters (e.g. spaces) may cause your message to be rejected by some mobile carriers.",
     )
     text: Optional[StrictStr] = Field(None, description="Message text.")
     __properties = ["contentId", "text"]

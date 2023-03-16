@@ -7,7 +7,7 @@ entities_endpoint = "/provisioning/1/entities"
 entity_endpoint = "/provisioning/1/entities/{entityId}"
 
 api_key = "givenApiKey"
-user_agent = "infobip-cpaasx-python-client/0.0.1"
+user_agent = "infobip-api-client-python/0.0.2-cpaasx"
 port = 8088
 
 

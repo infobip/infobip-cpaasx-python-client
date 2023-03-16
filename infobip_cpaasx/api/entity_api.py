@@ -503,7 +503,6 @@ class EntityApi(object):
 
         _response_types_map = {
             "200": "Entity",
-            "404": "ApiException",
         }
 
         return self.api_client.call_api(

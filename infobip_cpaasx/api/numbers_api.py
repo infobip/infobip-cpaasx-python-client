@@ -351,9 +351,6 @@ class NumbersApi(object):
 
         _response_types_map = {
             "200": "NumbersStoredMoConfiguration",
-            "401": None,
-            "403": None,
-            "404": None,
         }
 
         return self.api_client.call_api(
@@ -804,9 +801,6 @@ class NumbersApi(object):
 
         _response_types_map = {
             "200": "NumbersResponse",
-            "401": None,
-            "403": None,
-            "404": None,
         }
 
         return self.api_client.call_api(
@@ -977,9 +971,6 @@ class NumbersApi(object):
 
         _response_types_map = {
             "200": "NumbersStoredMoConfiguration",
-            "401": None,
-            "403": None,
-            "404": None,
         }
 
         return self.api_client.call_api(
@@ -1146,9 +1137,6 @@ class NumbersApi(object):
 
         _response_types_map = {
             "200": "NumberResponse",
-            "401": None,
-            "403": None,
-            "404": None,
         }
 
         return self.api_client.call_api(
@@ -1335,9 +1323,6 @@ class NumbersApi(object):
 
         _response_types_map = {
             "200": "NumbersMoConfigurations",
-            "401": None,
-            "403": None,
-            "404": None,
         }
 
         return self.api_client.call_api(
@@ -1524,9 +1509,6 @@ class NumbersApi(object):
 
         _response_types_map = {
             "200": "NumbersResponse",
-            "401": None,
-            "403": None,
-            "404": None,
         }
 
         return self.api_client.call_api(
@@ -1707,9 +1689,6 @@ class NumbersApi(object):
 
         _response_types_map = {
             "200": "NumbersStoredMoConfiguration",
-            "401": None,
-            "403": None,
-            "404": None,
         }
 
         return self.api_client.call_api(
@@ -1885,9 +1864,6 @@ class NumbersApi(object):
         _response_types_map = {
             "200": "NumberResponse",
             "201": None,
-            "401": None,
-            "403": None,
-            "404": None,
         }
 
         return self.api_client.call_api(

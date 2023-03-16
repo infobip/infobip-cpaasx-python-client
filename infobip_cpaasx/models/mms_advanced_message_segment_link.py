@@ -28,12 +28,12 @@ class MmsAdvancedMessageSegmentLink(BaseModel):
     content_id: Optional[StrictStr] = Field(
         None,
         alias="contentId",
-        description="Unique identifier within single message. [a-zA-Z] up to 20 characters.",
+        description="Unique identifier within single message. `[a-zA-Z]` up to 20 characters. Using other characters (e.g. spaces) may cause your message to be rejected by some mobile carriers.",
     )
     content_type: Optional[StrictStr] = Field(
         None,
         alias="contentType",
-        description="Content type for media, for example 'image/png'.",
+        description="Content type for media, for example `image/png`.",
     )
     content_url: StrictStr = Field(
         ..., alias="contentUrl", description="URL of externally hosted content."

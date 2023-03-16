@@ -11,7 +11,7 @@
 
 from __future__ import absolute_import
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 # import apis into sdk package
 from infobip_cpaasx.api.application_api import ApplicationApi
@@ -33,11 +33,9 @@ from infobip_cpaasx.exceptions import ApiAttributeError
 from infobip_cpaasx.exceptions import ApiException
 
 # import models into sdk package
-from infobip_cpaasx.models.api_exception import ApiException
 from infobip_cpaasx.models.application import Application
 from infobip_cpaasx.models.channel import Channel
 from infobip_cpaasx.models.entity import Entity
-from infobip_cpaasx.models.infobip_api_request_error import InfobipApiRequestError
 from infobip_cpaasx.models.message_error import MessageError
 from infobip_cpaasx.models.message_price import MessagePrice
 from infobip_cpaasx.models.message_status import MessageStatus
@@ -228,9 +226,6 @@ from infobip_cpaasx.models.resource_association_response import (
 from infobip_cpaasx.models.resource_type import ResourceType
 from infobip_cpaasx.models.sms_advanced_binary_request import SmsAdvancedBinaryRequest
 from infobip_cpaasx.models.sms_advanced_textual_request import SmsAdvancedTextualRequest
-from infobip_cpaasx.models.sms_api_request_error_details import (
-    SmsApiRequestErrorDetails,
-)
 from infobip_cpaasx.models.sms_binary_content import SmsBinaryContent
 from infobip_cpaasx.models.sms_binary_message import SmsBinaryMessage
 from infobip_cpaasx.models.sms_bulk_request import SmsBulkRequest

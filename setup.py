@@ -6,6 +6,7 @@
     powered by the OpenAPI Generator (https://openapi-generator.tech).
 """
 
+from pathlib import Path
 
 from setuptools import setup, find_packages  # noqa: H301
 
@@ -16,17 +17,20 @@ from setuptools import setup, find_packages  # noqa: H301
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 NAME = "infobip_cpaasx"
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 PYTHON_REQUIRES = ">=3.7"
 REQUIRES = ["urllib3 >= 1.25.3", "python-dateutil", "pydantic", "aenum"]
+
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
 
 setup(
     name=NAME,
     version=VERSION,
-    description="Infobip CPAASX Python Client Library",
+    description="Infobip CPaaS X Python Client Library",
     author="Infobip Ltd.",
     author_email="support@infobip.com",
-    url="https://pypi.org/project/infobip-cpaasx-python-client",
+    url="https://github.com/infobip/infobip-cpaasx-python-client",
     keywords=[
         "sms",
         "mms",
@@ -38,10 +42,8 @@ setup(
     packages=find_packages(exclude=["test", "tests"]),
     include_package_data=True,
     license="MIT",
-    long_description_content_type="text/markdown",
-    long_description="""\
-    Infobip CPAASX Python Client Library.  # noqa: E501
-    """,
+    long_description_content_type='text/markdown',
+    long_description=long_description,
     classifiers=[
         "Intended Audience :: Telecommunications Industry",
         "Intended Audience :: Information Technology",

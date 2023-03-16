@@ -339,7 +339,6 @@ class ApplicationApi(object):
 
         _response_types_map = {
             "200": "Application",
-            "404": "ApiException",
         }
 
         return self.api_client.call_api(

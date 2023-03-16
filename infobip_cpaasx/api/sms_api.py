@@ -191,8 +191,7 @@ class SmsApi(object):
         _auth_settings = ["APIKeyHeader"]  # noqa: E501
 
         _response_types_map = {
-            "4XX": "ApiException",
-            "5XX": "ApiException",
+            "200": "SmsInboundMessageResult",
         }
 
         return self.api_client.call_api(
@@ -389,8 +388,6 @@ class SmsApi(object):
 
         _response_types_map = {
             "200": "SmsDeliveryResult",
-            "400": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -713,8 +710,7 @@ class SmsApi(object):
         _auth_settings = ["APIKeyHeader"]  # noqa: E501
 
         _response_types_map = {
-            "4XX": "ApiException",
-            "5XX": "ApiException",
+            "200": "SmsLogsResponse",
         }
 
         return self.api_client.call_api(
@@ -865,9 +861,6 @@ class SmsApi(object):
 
         _response_types_map = {
             "200": "SmsBulkResponse",
-            "400": "ApiException",
-            "404": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -1018,9 +1011,6 @@ class SmsApi(object):
 
         _response_types_map = {
             "200": "SmsBulkStatusResponse",
-            "400": "ApiException",
-            "404": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -1179,8 +1169,6 @@ class SmsApi(object):
 
         _response_types_map = {
             "200": "SmsPreviewResponse",
-            "400": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -1345,9 +1333,6 @@ class SmsApi(object):
 
         _response_types_map = {
             "200": "SmsBulkResponse",
-            "400": "ApiException",
-            "404": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -1506,8 +1491,6 @@ class SmsApi(object):
 
         _response_types_map = {
             "200": "SmsResponse",
-            "400": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -1666,8 +1649,6 @@ class SmsApi(object):
 
         _response_types_map = {
             "200": "SmsResponse",
-            "400": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -1838,9 +1819,6 @@ class SmsApi(object):
 
         _response_types_map = {
             "200": "SmsBulkStatusResponse",
-            "400": "ApiException",
-            "404": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(

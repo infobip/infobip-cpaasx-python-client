@@ -28,12 +28,12 @@ class MmsAdvancedMessageSegmentBinary(BaseModel):
     content_id: Optional[StrictStr] = Field(
         None,
         alias="contentId",
-        description="Unique identifier within single message. [a-zA-Z] up to 20 characters.",
+        description="Unique identifier within single message. `[a-zA-Z]` up to 20 characters. Using other characters (e.g. spaces) may cause your message to be rejected by some mobile carriers.",
     )
     content_type: Optional[StrictStr] = Field(
         None,
         alias="contentType",
-        description="Content type for media, for example 'image/png'.",
+        description="Content type for media, for example `image/png`.",
     )
     content_base64: Optional[StrictStr] = Field(
         None, alias="contentBase64", description="Content in Base64 format."

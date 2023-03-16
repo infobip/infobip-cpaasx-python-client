@@ -565,7 +565,6 @@ class ResourceAssociationApi(object):
 
         _response_types_map = {
             "200": "ResourceAssociationResponse",
-            "404": "ApiException",
         }
 
         return self.api_client.call_api(

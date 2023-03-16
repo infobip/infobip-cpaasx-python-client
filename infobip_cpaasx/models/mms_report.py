@@ -14,6 +14,7 @@ import re  # noqa: F401
 import json
 
 
+from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, Field, StrictInt, StrictStr
 from infobip_cpaasx.models.mms_error import MmsError
@@ -36,12 +37,12 @@ class MmsReport(BaseModel):
     var_from: Optional[StrictStr] = Field(
         None, alias="from", description="Sender ID that can be alphanumeric or numeric."
     )
-    sent_at: Optional[StrictStr] = Field(
+    sent_at: Optional[datetime] = Field(
         None,
         alias="sentAt",
         description="Indicates whether the MMS was sent. Has the following format: `yyyy-MM-dd'T'HH:mm:ss.SSSZ`.",
     )
-    done_at: Optional[StrictStr] = Field(
+    done_at: Optional[datetime] = Field(
         None,
         alias="doneAt",
         description="Indicates Whether the MMS was finished processing by Infobip (i.e., delivered to the destination, delivered to the destination network, etc.). Has the following format: `yyyy-MM-dd'T'HH:mm:ss.SSSZ`.",

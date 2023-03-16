@@ -200,9 +200,6 @@ class NumberRegistrationApi(object):
 
         _response_types_map = {
             "201": "NumberRegistrationBrand",
-            "400": "ApiException",
-            "429": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -361,9 +358,6 @@ class NumberRegistrationApi(object):
 
         _response_types_map = {
             "201": "NumberRegistrationCampaign",
-            "400": "ApiException",
-            "429": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -676,9 +670,6 @@ class NumberRegistrationApi(object):
 
         _response_types_map = {
             "200": "NumberRegistrationBrand",
-            "404": "ApiException",
-            "429": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -837,9 +828,6 @@ class NumberRegistrationApi(object):
 
         _response_types_map = {
             "200": "List[NumberRegistrationBrandStatus]",
-            "404": "ApiException",
-            "429": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -1010,9 +998,6 @@ class NumberRegistrationApi(object):
 
         _response_types_map = {
             "200": "NumberRegistrationBrandVet",
-            "404": "ApiException",
-            "429": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -1226,9 +1211,6 @@ class NumberRegistrationApi(object):
 
         _response_types_map = {
             "200": "NumberRegistrationPageResponseBrandVet",
-            "404": "ApiException",
-            "429": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -1509,9 +1491,6 @@ class NumberRegistrationApi(object):
 
         _response_types_map = {
             "200": "NumberRegistrationPageResponseBrand",
-            "400": "ApiException",
-            "429": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -1668,9 +1647,6 @@ class NumberRegistrationApi(object):
 
         _response_types_map = {
             "200": "NumberRegistrationCampaign",
-            "404": "ApiException",
-            "429": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -1829,9 +1805,6 @@ class NumberRegistrationApi(object):
 
         _response_types_map = {
             "200": "List[NumberRegistrationNetworkStatus]",
-            "404": "ApiException",
-            "429": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -2165,9 +2138,6 @@ class NumberRegistrationApi(object):
 
         _response_types_map = {
             "200": "NumberRegistrationPageResponseCampaign",
-            "400": "ApiException",
-            "429": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -2653,10 +2623,6 @@ class NumberRegistrationApi(object):
         _response_types_map = {
             "200": "NumberRegistrationBrand",
             "202": "NumberRegistrationBrand",
-            "400": "ApiException",
-            "405": "ApiException",
-            "429": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -2843,9 +2809,6 @@ class NumberRegistrationApi(object):
 
         _response_types_map = {
             "200": "NumberRegistrationBrandVet",
-            "404": "ApiException",
-            "429": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -3020,10 +2983,6 @@ class NumberRegistrationApi(object):
 
         _response_types_map = {
             "200": "NumberRegistrationCampaign",
-            "400": "ApiException",
-            "405": "ApiException",
-            "429": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(
@@ -3542,9 +3501,6 @@ class NumberRegistrationApi(object):
 
         _response_types_map = {
             "202": "NumberRegistrationBrandVet",
-            "404": "ApiException",
-            "429": "ApiException",
-            "500": "ApiException",
         }
 
         return self.api_client.call_api(

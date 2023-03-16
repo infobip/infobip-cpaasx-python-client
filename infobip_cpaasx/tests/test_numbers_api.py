@@ -3,14 +3,19 @@ from pytest_httpserver import HTTPServer
 
 from infobip_cpaasx import ApiClient, Configuration, NumbersApi, \
     NumberResponse, NumbersEditPermissions, NumbersResponse, NumberPrice, NumbersVoiceSetup, \
-    NumbersVoiceNumberMaskingActionDetails, NumbersPurchaseNumberRequest, NumbersForwardToIvrActionDetails
+    NumbersVoiceNumberMaskingActionDetails, NumbersPurchaseNumberRequest, NumbersForwardToIvrActionDetails, \
+    NumbersMoConfiguration, NumbersHttpForwardAction, NumbersStoredMoConfiguration, NumbersUseConversation, \
+    NumbersMailForwardAction, NumbersSmppForwardAction, NumbersAutoResponseAction, \
+    NumbersDeliveryTimeWindow, NumbersMoConfigurations, NumbersBlockAction, NumbersNoAction
 
 available_numbers_endpoint = "/numbers/1/numbers/available"
 numbers_endpoint = "/numbers/1/numbers"
 number_endpoint = "/numbers/1/numbers/{numberKey}"
+number_configuration_endpoint = "/numbers/2/numbers/{numberKey}/sms"
+number_configuration_single_endpoint = "/numbers/2/numbers/{numberKey}/sms/{configurationKey}"
 
 api_key = "givenApiKey"
-user_agent = "infobip-cpaasx-python-client/0.0.1"
+user_agent = "infobip-api-client-python/0.0.2-cpaasx"
 expected_headers = {
     "Authorization": "App {}".format(api_key),
     "User-Agent": user_agent
@@ -439,6 +444,320 @@ def test_cancel_number(httpserver: HTTPServer, numbers_api_client):
     numbers_api_client.cancel_number(number_key)
 
 
+def test_create_configuration(httpserver: HTTPServer, numbers_api_client):
+    expected_request = {
+        "keyword": "KEYWORD1",
+        "action": {
+            "type": "HTTP_FORWARD",
+            "url": "http://example.com/action",
+            "httpMethod": "POST",
+            "contentType": "JSON"
+        },
+        "applicationId": "my-application-id",
+        "entityId": "my-entity-id"
+    }
+
+    expected_response = {
+        "key": "E9FCDCA496035F08EEA5933702EDF745",
+        "keyword": "KEYWORD1",
+        "action": {
+            "url": "http://something.com",
+            "httpMethod": "POST",
+            "contentType": "JSON",
+            "type": "HTTP_FORWARD"
+        },
+        "useConversation": {
+            "enabled": False
+        },
+        "otherActionsDetails": [],
+        "otherActions": [],
+        "applicationId": "my-application-id",
+        "entityId": "my-entity-id"
+    }
+
+    number_key = "ABC100EFG200"
+
+    setup_post_request_ok(
+        httpserver=httpserver,
+        endpoint=number_configuration_endpoint.replace("{numberKey}", number_key),
+        expected_request=expected_request,
+        expected_response=expected_response
+    )
+
+    number_configuration = NumbersMoConfiguration(
+        keyword="KEYWORD1",
+        action=NumbersHttpForwardAction(
+            type="HTTP_FORWARD",
+            url="http://example.com/action",
+            httpMethod="POST",
+            contentType="JSON",
+        ),
+        application_id="my-application-id",
+        entity_id="my-entity-id"
+    )
+
+    actual_response = numbers_api_client.create_new_configuration(
+        number_key=number_key,
+        numbers_mo_configuration=number_configuration
+    )
+
+    expected_stored_configuration = NumbersStoredMoConfiguration(
+        key="E9FCDCA496035F08EEA5933702EDF745",
+        keyword="KEYWORD1",
+        action=NumbersHttpForwardAction(
+            url="http://something.com",
+            httpMethod="POST",
+            contentType="JSON",
+            type="HTTP_FORWARD"
+        ),
+        use_conversation=NumbersUseConversation(
+            enabled=False
+        ),
+        other_actions=[],
+        other_actions_details=[],
+        application_id="my-application-id",
+        entity_id="my-entity-id"
+    )
+
+    assert actual_response == expected_stored_configuration
+
+
+def test_update_configuration(httpserver: HTTPServer, numbers_api_client):
+    expected_request = {
+        "key": "E9FCDCA496035F08EEA5933702EDF745",
+        "keyword": "KEYWORD1",
+        "action": {
+            "type": "MAIL_FORWARD",
+            "mail": "someone@example.com"
+        },
+        "applicationId": "my-application-id",
+        "entityId": "my-entity-id"
+    }
+
+    expected_response = {
+        "key": "E9FCDCA496035F08EEA5933702EDF745",
+        "keyword": "KEYWORD1",
+        "action": {
+            "type": "MAIL_FORWARD",
+            "mail": "someone@example.com"
+        },
+        "useConversation": {
+            "enabled": False
+        },
+        "otherActionsDetails": [],
+        "otherActions": [],
+        "applicationId": "my-application-id",
+        "entityId": "my-entity-id"
+    }
+
+    number_key = "ABC100EFG200"
+
+    setup_put_request_ok(
+        httpserver=httpserver,
+        endpoint=number_configuration_endpoint.replace("{numberKey}", number_key),
+        expected_request=expected_request,
+        expected_response=expected_response
+    )
+
+    number_configuration = NumbersStoredMoConfiguration(
+        key="E9FCDCA496035F08EEA5933702EDF745",
+        keyword="KEYWORD1",
+        action=NumbersMailForwardAction(
+            type="MAIL_FORWARD",
+            mail="someone@example.com"
+        ),
+        application_id="my-application-id",
+        entity_id="my-entity-id"
+    )
+
+    actual_response = numbers_api_client.modify_sms_configurations(
+        number_key=number_key,
+        numbers_stored_mo_configuration=number_configuration
+    )
+
+    expected_stored_configuration = NumbersStoredMoConfiguration(
+        key="E9FCDCA496035F08EEA5933702EDF745",
+        keyword="KEYWORD1",
+        action=NumbersMailForwardAction(
+            type="MAIL_FORWARD",
+            mail="someone@example.com"
+        ),
+        use_conversation=NumbersUseConversation(
+            enabled=False
+        ),
+        other_actions=[],
+        other_actions_details=[],
+        application_id="my-application-id",
+        entity_id="my-entity-id"
+    )
+
+    assert actual_response == expected_stored_configuration
+
+
+def test_get_configuration(httpserver: HTTPServer, numbers_api_client):
+    number_key = "ABC100EFG200"
+    configuration_key = "E9FCDCA496035F08EEA5933702EDF745"
+    expected_response = {
+        "key": configuration_key,
+        "keyword": "KEYWORD1",
+        "action": {
+            "type": "SMPP_FORWARD"
+        },
+        "useConversation": {
+            "enabled": True
+        },
+        "otherActionsDetails": [
+            {
+                "type": "AUTORESPONSE",
+                "editable": False,
+                "message": "Hello World!",
+                "sender": "InfoSMS",
+                "deliveryTimeWindow": {
+                    "from": "12:30",
+                    "to": "22:00",
+                    "days": ["MONDAY", "SATURDAY"],
+                    "deliveryTimeZone": "USER_TIME_ZONE"
+                }
+            }
+        ],
+        "otherActions": ["AUTORESPONSE"],
+        "applicationId": "my-application-id",
+        "entityId": "my-entity-id"
+    }
+
+    setup_get_request(
+        httpserver=httpserver,
+        endpoint=number_configuration_single_endpoint
+        .replace("{numberKey}", number_key)
+        .replace("{configurationKey}", configuration_key),
+        expected_response=expected_response,
+        query_string=""
+    )
+
+    actual_response = numbers_api_client.get_single_configuration(
+        number_key=number_key,
+        configuration_key=configuration_key
+    )
+
+    expected_stored_configuration = NumbersStoredMoConfiguration(
+        key="E9FCDCA496035F08EEA5933702EDF745",
+        keyword="KEYWORD1",
+        action=NumbersSmppForwardAction(
+            type="SMPP_FORWARD"
+        ),
+        use_conversation=NumbersUseConversation(
+            enabled=True
+        ),
+        other_actions_details=[
+            NumbersAutoResponseAction(
+                type="AUTORESPONSE",
+                editable=False,
+                message="Hello World!",
+                sender="InfoSMS",
+                delivery_time_window=NumbersDeliveryTimeWindow(
+                    var_from="12:30",
+                    to="22:00",
+                    days=["MONDAY", "SATURDAY"],
+                    delivery_time_zone="USER_TIME_ZONE"
+                )
+            )
+        ],
+        other_actions=["AUTORESPONSE"],
+        application_id="my-application-id",
+        entity_id="my-entity-id"
+    )
+
+    assert actual_response == expected_stored_configuration
+
+
+def test_get_configurations(httpserver: HTTPServer, numbers_api_client):
+    number_key = "ABC100EFG200"
+    configuration_key = "E9FCDCA496035F08EEA5933702EDF745"
+    expected_response = {
+        "configurations": [
+            {
+                "key": configuration_key,
+                "keyword": "KEYWORD1",
+                "action": {
+                    "type": "NO_ACTION"
+                },
+                "useConversation": {
+                    "enabled": True
+                },
+                "otherActionsDetails": [
+                    {
+                        "type": "BLOCK",
+                        "editable": False,
+                        "blockType": "FROM_SENDER"
+                    }
+                ],
+                "otherActions": ["BLOCK"],
+                "applicationId": "my-application-id",
+                "entityId": "my-entity-id"
+            }
+        ],
+        "totalCount": 1
+    }
+
+    setup_get_request(
+        httpserver=httpserver,
+        endpoint=number_configuration_endpoint.replace("{numberKey}", number_key),
+        expected_response=expected_response,
+        query_string=to_query_string_without_escaping({"limit": 1, "page": 0})
+    )
+
+    actual_response = numbers_api_client.list_configurations_for_number(
+        number_key=number_key,
+        limit=1,
+        page=0,
+    )
+
+    expected_configurations = NumbersMoConfigurations(
+        configurations=[
+            NumbersStoredMoConfiguration(
+                key="E9FCDCA496035F08EEA5933702EDF745",
+                keyword="KEYWORD1",
+                action=NumbersNoAction(
+                    type="NO_ACTION"
+                ),
+                use_conversation=NumbersUseConversation(
+                    enabled=True
+                ),
+                other_actions_details=[
+                    NumbersBlockAction(
+                        type="BLOCK",
+                        editable=False,
+                        block_type="FROM_SENDER"
+                    )
+                ],
+                other_actions=["BLOCK"],
+                application_id="my-application-id",
+                entity_id="my-entity-id"
+            )
+        ],
+        total_count=1
+    )
+
+    assert actual_response == expected_configurations
+
+
+def test_delete_configuration(httpserver: HTTPServer, numbers_api_client):
+    number_key = "ABC100EFG200"
+    configuration_key = "E9FCDCA496035F08EEA5933702EDF745"
+
+    setup_delete_request_no_content(
+        httpserver=httpserver,
+        endpoint=number_configuration_single_endpoint
+        .replace("{numberKey}", number_key)
+        .replace("{configurationKey}", configuration_key)
+    )
+
+    numbers_api_client.delete_configuration(
+        number_key=number_key,
+        configuration_key=configuration_key
+    )
+
+
 def to_query_string_without_escaping(query_params: dict):
     if not query_params:
         return ""
@@ -458,10 +777,16 @@ def setup_post_request_ok(httpserver: HTTPServer, endpoint: str, expected_reques
     httpserver.expect_request(
         uri=endpoint,
         method="POST",
-        headers={
-            "Authorization": "App {}".format(api_key),
-            "User-Agent": user_agent
-        },
+        headers=expected_headers,
+        json=expected_request
+    ).respond_with_json(status=200, response_json=expected_response)
+
+
+def setup_put_request_ok(httpserver: HTTPServer, endpoint: str, expected_request: dict, expected_response: dict):
+    httpserver.expect_request(
+        uri=endpoint,
+        method="PUT",
+        headers=expected_headers,
         json=expected_request
     ).respond_with_json(status=200, response_json=expected_response)
 

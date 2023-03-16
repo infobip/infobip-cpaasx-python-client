@@ -11,7 +11,7 @@ from __future__ import absolute_import
 
 import re  # noqa: F401
 
-from pydantic import validate_arguments, ValidationError
+from pydantic import validate_arguments, ValidationError, StrictBytes
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictInt, StrictStr
@@ -46,12 +46,12 @@ class MmsApi(object):
         limit: Annotated[
             Optional[StrictInt],
             Field(
-                description="Maximal number of delivery reports that will be returned."
+                description="Maximum number of delivery reports that will be returned."
             ),
         ] = None,
         **kwargs
     ) -> MmsInboundReportResponse:  # noqa: E501
-        """Get inbound MMS messages   # noqa: E501
+        """Get inbound MMS messages  # noqa: E501
 
         If for some reason you are unable to receive incoming MMS at the endpoint of your choice in real time, you can use this API call to fetch messages. Each request will return a batch of received messages - only once. The following API request will return only new messages that arrived since the last API request.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -60,7 +60,7 @@ class MmsApi(object):
         >>> thread = api.get_inbound_mms_messages(limit, async_req=True)
         >>> result = thread.get()
 
-        :param limit: Maximal number of delivery reports that will be returned.
+        :param limit: Maximum number of delivery reports that will be returned.
         :type limit: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -88,12 +88,12 @@ class MmsApi(object):
         limit: Annotated[
             Optional[StrictInt],
             Field(
-                description="Maximal number of delivery reports that will be returned."
+                description="Maximum number of delivery reports that will be returned."
             ),
         ] = None,
         **kwargs
     ):  # noqa: E501
-        """Get inbound MMS messages   # noqa: E501
+        """Get inbound MMS messages  # noqa: E501
 
         If for some reason you are unable to receive incoming MMS at the endpoint of your choice in real time, you can use this API call to fetch messages. Each request will return a batch of received messages - only once. The following API request will return only new messages that arrived since the last API request.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -102,7 +102,7 @@ class MmsApi(object):
         >>> thread = api.get_inbound_mms_messages_with_http_info(limit, async_req=True)
         >>> result = thread.get()
 
-        :param limit: Maximal number of delivery reports that will be returned.
+        :param limit: Maximum number of delivery reports that will be returned.
         :type limit: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -218,12 +218,12 @@ class MmsApi(object):
         limit: Annotated[
             Optional[StrictInt],
             Field(
-                description="Maximal number of delivery reports that will be returned."
+                description="Maximum number of delivery reports that will be returned."
             ),
         ] = None,
         **kwargs
     ) -> MmsReportResponse:  # noqa: E501
-        """Get outbound MMS message delivery reports   # noqa: E501
+        """Get outbound MMS message delivery reports  # noqa: E501
 
         If you are unable to receive real-time delivery reports towards your endpoint for various reasons, we offer you an API method to fetch batches of delivery reports to confirm whether specific messages have been delivered. Each request towards this endpoint will return batches of the latest delivery reports. Please note they will be returned only once.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -236,7 +236,7 @@ class MmsApi(object):
         :type bulk_id: str
         :param message_id: ID of MMS for which a delivery report is requested.
         :type message_id: str
-        :param limit: Maximal number of delivery reports that will be returned.
+        :param limit: Maximum number of delivery reports that will be returned.
         :type limit: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -272,12 +272,12 @@ class MmsApi(object):
         limit: Annotated[
             Optional[StrictInt],
             Field(
-                description="Maximal number of delivery reports that will be returned."
+                description="Maximum number of delivery reports that will be returned."
             ),
         ] = None,
         **kwargs
     ):  # noqa: E501
-        """Get outbound MMS message delivery reports   # noqa: E501
+        """Get outbound MMS message delivery reports  # noqa: E501
 
         If you are unable to receive real-time delivery reports towards your endpoint for various reasons, we offer you an API method to fetch batches of delivery reports to confirm whether specific messages have been delivered. Each request towards this endpoint will return batches of the latest delivery reports. Please note they will be returned only once.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -290,7 +290,7 @@ class MmsApi(object):
         :type bulk_id: str
         :param message_id: ID of MMS for which a delivery report is requested.
         :type message_id: str
-        :param limit: Maximal number of delivery reports that will be returned.
+        :param limit: Maximum number of delivery reports that will be returned.
         :type limit: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -533,9 +533,6 @@ class MmsApi(object):
 
         _response_types_map = {
             "200": "MmsSendResult",
-            "400": "ApiException",
-            "500": "object",
-            "401": "object",
         }
 
         return self.api_client.call_api(
@@ -574,7 +571,7 @@ class MmsApi(object):
                 description="Content mime type. Should be populated by standard MIME types (IANA media types).",
             ),
         ],
-        body: StrictStr,
+        body: StrictBytes,
         x_validity_period_minutes: Annotated[
             Optional[StrictInt],
             Field(
@@ -637,7 +634,7 @@ class MmsApi(object):
                 description="Content mime type. Should be populated by standard MIME types (IANA media types).",
             ),
         ],
-        body: StrictStr,
+        body: StrictBytes,
         x_validity_period_minutes: Annotated[
             Optional[StrictInt],
             Field(
@@ -762,9 +759,6 @@ class MmsApi(object):
         _auth_settings = ["APIKeyHeader"]  # noqa: E501
 
         _response_types_map = {
-            "500": "object",
-            "401": "object",
-            "400": "ApiException",
             "200": "MmsUploadBinaryResult",
         }
 

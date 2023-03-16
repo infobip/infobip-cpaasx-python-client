@@ -1,6 +1,6 @@
 # Infobip CPaaS X Python Client
 
-[![Pypi index](https://badgen.net/pypi/v/infobip-cpaasx-python-client)](https://pypi.org/project/infobip-cpaasx-python-client/)
+[![Pypi index](https://badgen.net/pypi/v/infobip-cpaasx)](https://pypi.org/project/infobip-cpaasx/)
 [![MIT License](https://badgen.net/github/license/infobip/infobip-cpaasx-python-client)](https://opensource.org/licenses/MIT)
 
 This is a Python package for Infobip CpaaS X API and you can use it as a dependency to add [Infobip APIs][apidocs] to your application.

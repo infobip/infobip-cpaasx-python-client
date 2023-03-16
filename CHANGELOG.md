@@ -10,7 +10,8 @@ and this library adheres to [Semantic Versioning](http://semver.org/) as mention
 
 ### Added
 * Additional test cases.
-* Application ID and entity ID to SMS and MMS report models. 
+* Application ID and entity ID to SMS and MMS report models.
+* Snyk badge.
 
 ### Fixed
 * MMS binary content upload body type. Now, the body is processed as `StrictBytes`.
@@ -28,6 +29,7 @@ and this library adheres to [Semantic Versioning](http://semver.org/) as mention
 
 ### Removed
 * Unused error model classes.
+* Unused test requirements.
 
 
 ## [ [0.0.1](https://github.com/infobip/infobip-cpaasx-python-client/releases/tag/0.0.1) ] - 2021-03-08
